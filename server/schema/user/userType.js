@@ -8,8 +8,10 @@ const {
     // GraphQLList
 } = graphql;
 
-const CompanyType = require('../company/companyType');
+// const CompanyType = require('../company/companyType');
 const UserCompanyResolver = require('./userCompanyResolver');
+
+console.log("user")
 
 const UserType = new GraphQLObjectType({
     name: 'User',
@@ -29,10 +31,14 @@ const UserType = new GraphQLObjectType({
             type: GraphQLInt
         },
         company: {
-            type: CompanyType,
+            // type: CompanyType,
+            type: require('../company/companyType'),
             resolve: UserCompanyResolver
         }
     })
 })
 
 module.exports = UserType;
+
+
+
