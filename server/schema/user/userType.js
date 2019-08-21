@@ -8,6 +8,9 @@ const {
     // GraphQLList
 } = graphql;
 
+const CompanyType = require('../company/companyType');
+const UserCompanyResolver = require('./userCompanyResolver');
+
 const UserType = new GraphQLObjectType({
     name: 'User',
     description: 'a user',
@@ -24,23 +27,12 @@ const UserType = new GraphQLObjectType({
         },
         age: {
             type: GraphQLInt
+        },
+        company: {
+            type: CompanyType,
+            resolve: UserCompanyResolver
         }
     })
-    // fields: {
-    //     id: {
-    //         type: new GraphQLNonNull(GraphQLString),
-    //         description: 'ID associated with database'
-    //     },
-    //     firstname: {
-    //         type: GraphQLString
-    //     },
-    //     lastname: {
-    //         type: GraphQLString
-    //     },
-    //     age: {
-    //         type: GraphQLInt
-    //     }
-    // }
 })
 
 module.exports = UserType;
