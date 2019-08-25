@@ -6,19 +6,20 @@ const {
     GraphQLString,
     GraphQLInt,
     // GraphQLList
+    GraphQLID
 } = graphql;
 
 // const CompanyType = require('../company/companyType');
 const UserCompanyResolver = require('./userCompanyResolver');
 
-console.log("user")
 
 const UserType = new GraphQLObjectType({
     name: 'User',
     description: 'a user',
     fields: () => ({
         id: {
-            type: new GraphQLNonNull(GraphQLString),
+            // type: new GraphQLNonNull(GraphQLString),
+            type: new GraphQLNonNull(GraphQLID),
             description: 'ID associated with database'
         },
         firstname: {

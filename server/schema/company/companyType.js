@@ -7,8 +7,6 @@ const {
     // GraphQLInt
 } = graphql;
 
-console.log("company")
-
 // const UserType = require('../user/userType');
 const companyUsersResolver = require('./companyUsersResolver');
 

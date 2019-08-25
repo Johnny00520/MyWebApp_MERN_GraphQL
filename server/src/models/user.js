@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-    id: mongoose.Schema.Types.ObjectId,
+    // _id: mongoose.Schema.Types.ObjectId,
     firstname: String,
     lastname: String,
     age: String,
     companyId: String
-})
+}, { collection: 'users'})
 
 // model = collection in mongoDB
-// module.exports = mongoose.model("users", userSchema)
+export const User = mongoose.model("users", userSchema)

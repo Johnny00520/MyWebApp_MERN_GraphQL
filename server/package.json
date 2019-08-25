@@ -8,14 +8,18 @@
     "npm": "5.0.3"
   },
   "scripts": {
-    "start": "node index.js",
-    "json:server": "json-server -p 4500 --watch db.json",
-    "server": "nodemon index.js"
+    "start": "nodemon --exec babel-node src/index.js",
+    "json:server": "json-server -p 4500 --watch db.json"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "apollo-server-express": "^2.9.0",
     "axios": "^0.19.0",
     "concurrently": "^4.1.2",
     "cors": "^2.8.5",
