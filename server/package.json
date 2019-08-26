@@ -8,8 +8,12 @@
     "npm": "5.0.3"
   },
   "scripts": {
-    "start": "nodemon --exec babel-node src/index.js",
-    "json:server": "json-server -p 4500 --watch db.json"
+    "start": "node index.js",
+    "server": "nodemon --exec babel-node src/server.js",
+    "json:server": "json-server -p 4500 --watch db.json",
+    "client": "npm run start --prefix src/client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
   "author": "",
