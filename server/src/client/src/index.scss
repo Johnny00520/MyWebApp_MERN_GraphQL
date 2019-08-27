@@ -13,6 +13,10 @@ html {
   body > #root {
     min-height: -webkit-fill-available;
     // min-height: 100vh;
+
+    .app {
+      position: relative;
+    }
   }
 
   // body > #root > div {
