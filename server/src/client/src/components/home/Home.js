@@ -3,7 +3,8 @@ import About from '../about/About';
 // import gql from 'graphql-tag';
 // import { Query } from 'react-apollo';
 
-import Navbar from '../customNavbar/CustomNavbar';
+// import Navbar from '../customNavbar/CustomNavbar';
+
 import './Home.scss';
 
 // https://res.cloudinary.com/dqvawqnkh/image/upload/v1566792045/homepage_background/homepage.gif

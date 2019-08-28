@@ -3,11 +3,12 @@ import { Link, withRouter } from 'react-router-dom';
 import './CustomNavbar.scss';
 
 const navbarPaths = [
-    { path: '/home', main: "Home"},
+    { path: '/', main: "Home"},
     { path: '/about', main: "About"},
     { path: '/skills', main: "Skills"},
     { path: '/experiences', main: "Experiences"},
     { path: '/projects', main: "Projects" },
+    { path: '/adminlayout', main: "Admin"},
     { path: '/contact', main: "Contact"}
 ]
 

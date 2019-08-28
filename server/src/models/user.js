@@ -4,6 +4,11 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
     firstname: String,
     lastname: String,
+    password: String,
+    email: String,
+    createdAt: String,
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
     age: String,
     companyId: String
 }, { collection: 'users'})

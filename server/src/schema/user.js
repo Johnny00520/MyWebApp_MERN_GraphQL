@@ -3,8 +3,21 @@ export const types = `
         id: ID!
         firstname: String!
         lastname: String!
+        email: String!
+        token: String!
+        createdAt: String!
         age: String
         companyId: String
+    }
+`;
+
+export const inputs = `
+    input RegisterInput {
+        firstname: String!
+        lastname: String!
+        email: String!
+        password: String!
+        confirmPassword: String!
     }
 `;
 
@@ -19,4 +32,7 @@ export const mutations = `
         age: String!
         companyId: String!
     ): User!
+
+    register(registerInput: RegisterInput): User!
+    userLogin(email: String!, password: String!): User!
 `;

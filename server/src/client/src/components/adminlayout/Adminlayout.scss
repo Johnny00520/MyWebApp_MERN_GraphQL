@@ -1,0 +1,49 @@
+.adminlayout_page {
+    background: #161415 url(../../assets/homepage.gif) no-repeat top center;
+    text-align: center;
+    height: 100%;
+    top: 0;
+
+    .adminlayout_container {
+        height: 100vh;
+        width: 80%;
+
+        margin: 0 auto;
+
+        display: flex;
+        align-items: center;
+
+        .adminlayout_wrapper {
+            width: 100%;
+            // display: flex;
+            // align-items: center;
+
+            .ui.placeholder.segment {
+                margin: 0 auto;
+    
+                .ui.grid  {
+
+                }
+
+                .divider_none {
+                    display: none;
+                }
+
+            }
+        }
+
+
+    }
+
+}
+
+
+@media only screen and (max-width: 767px) {
+    .ui.stackable.grid {
+
+        .divider_responsible {
+            width: 100%;
+        }
+
+    }
+}
