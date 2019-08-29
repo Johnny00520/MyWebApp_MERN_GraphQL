@@ -5,7 +5,10 @@ const companySchema = new Schema({
     name: String,
     industry: String,
     description: String,
-    users: Array
+    users: {
+        type: Array(Schema.Types.ObjectId),
+        ref: "companies"
+    }
 }, { collection: "companies" })
 
 // model = collection in mongoDB

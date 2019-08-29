@@ -10,7 +10,10 @@ const userSchema = new Schema({
     resetPasswordToken: String,
     resetPasswordExpires: Date,
     age: String,
-    companyId: String
+    companyId: {
+        type: Schema.Types.ObjectId,
+        ref: "users"
+    }
 }, { collection: 'users'})
 
 // model = collection in mongoDB

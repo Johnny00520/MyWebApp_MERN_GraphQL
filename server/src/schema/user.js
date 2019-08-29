@@ -19,19 +19,23 @@ export const inputs = `
         password: String!
         confirmPassword: String!
     }
+    input AdminCreateUserInput {
+        firstname: String!
+        lastname: String!
+        email: String!
+        password: String!
+    }
 `;
 
 export const queries = `
     allUsers: [User!]!
+    getUser(userId: ID!): User!
 `;
 
 export const mutations = `
-    createUser(
-        firstname: String!
-        lastname: String!
-        age: String!
-        companyId: String!
-    ): User!
+    adminCreateUser(adminCreateInput: AdminCreateUserInput): User!
+    adminDeleteUser(userId: ID!): String!
+
 
     register(registerInput: RegisterInput): User!
     userLogin(email: String!, password: String!): User!

@@ -7,8 +7,7 @@ import { userResolvers } from './userResolvers';
 
 export const resolvers = {
     Query: {
-        allCompanies: () => Company.find(),
-        allUsers: () => User.find({}),
+        ...userResolvers.Query
     },
     Mutation: {
         // createUser: userResolvers

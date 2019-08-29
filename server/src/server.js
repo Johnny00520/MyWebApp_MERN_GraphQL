@@ -1,6 +1,7 @@
 import express from 'express';
 // import expressGraphQL from 'express-graphql'
 import { ApolloServer } from "apollo-server-express";
+// import { ApolloServer } from "apollo-server";
 import cors from 'cors';
 import mongoose from 'mongoose';
 import keys from '../config/keys';
@@ -8,13 +9,14 @@ import { resolvers } from './resolvers/index';
 import { typeDefs } from './schema/index';
 
 
-const startServer = () => {
+const startServer = (req) => {
     const app = express();
     app.use(cors());
 
     const server = new ApolloServer({
         typeDefs,
-        resolvers
+        resolvers,
+        context: ({ req, res }) =>  ({ req }), // Authentication
     });
 
     server.applyMiddleware({ app })
