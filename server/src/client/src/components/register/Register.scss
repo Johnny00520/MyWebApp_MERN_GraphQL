@@ -1,0 +1,53 @@
+.register_page {
+    height: 100%;
+    background-color: black;
+
+    .form_container {
+        width: 70%;
+        margin: auto;
+        height: 100vh;
+        
+        display: flex;
+        align-items: center;
+        
+        .form_wrapper {
+            width: 90%;
+            margin: auto;
+            margin-top: 60px;
+
+            .ui.form {
+                padding: 1rem;
+                width: 100%;
+                background-color: azure;
+
+                
+    
+                .ui.primary.button {
+                    // float: right;
+                    right: 0;
+                    
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+    .register_page {
+
+        .form_container {
+            width: 90%;
+
+            .form_wrapper {
+                width: 95%;
+                margin: auto;
+
+                .ui.form {
+                    padding: 1rem;
+                }
+            }
+        }
+
+    }
+
+}

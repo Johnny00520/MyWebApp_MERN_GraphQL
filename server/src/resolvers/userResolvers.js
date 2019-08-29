@@ -10,9 +10,9 @@ import {
 
 const generateToken = (user) => {
     return jwt.sign({
-        id: res.id,
-        email: res.email,
-        lastname: res.lastname
+        id: user.id,
+        email: user.email,
+        lastname: user.lastname
     }, keys.SECRET_KEY, { expiresIn: '1h'});
 }
 
@@ -58,14 +58,13 @@ export const userResolvers = {
                 token
             }
         },
-        async register(_, { registerInput : {
+        register: async(_, { registerInput : {
             firstname,
             lastname,
             email,
             password,
             confirmPassword
-        }}) {
-
+        }}) => {
             // Validate data
             const { valid, errors } = validateRegisterInput(firstname, lastname, email, password, confirmPassword);
             if(!valid) {
