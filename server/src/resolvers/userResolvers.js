@@ -95,6 +95,8 @@ export const userResolvers = {
             }
         },
         adminDeleteUser: async(_, { userId }, context) => {
+            // Because we handle all possible situation for the token check in the function, so
+            // the return variable doesn't need to do anything
             const authUser = authCheck(context);
 
             try {

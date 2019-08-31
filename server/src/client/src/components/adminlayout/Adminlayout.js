@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
-
-import { Button, Divider, Form, Grid, Segment } from 'semantic-ui-react';
+import { Button, Divider, Grid, Segment } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import './Adminlayout.scss';
+import Login from '../login/Login';
 
 const getWindowDimensions = () => {
     const { innerWidth: width, innerHeight: height } = window;
@@ -13,12 +13,13 @@ const getWindowDimensions = () => {
     };
 }
 
-const Adminlayout = () => {
+const Adminlayout = (props) => {
     const [windowDimensions] = useState(getWindowDimensions());
 
     // console.log({windowDimensions})
     const { width } = windowDimensions;
 
+    // useEffect() : just like componentDidMount
     // useEffect(() => {
     //     setWindowDimensions = () => {
     //         width:
@@ -39,13 +40,17 @@ const Adminlayout = () => {
                     <Segment placeholder>
                         <Grid columns={2} stackable>
                             <Grid.Column>
-                                <Form>
+
+                                <Login {...props}/>
+
+                                {/* <Form>
                                     <Form.Input
                                         icon='envelope'
                                         iconPosition='left'
                                         label='Email'
                                         placeholder='UserEmailname'
                                     />
+                                    
                                     <Form.Input
                                         icon='lock'
                                         iconPosition='left'
@@ -54,7 +59,8 @@ const Adminlayout = () => {
                                     />
 
                                     <Button content='Login' primary />
-                                </Form>
+                                </Form> */}
+
                             </Grid.Column>
 
 
