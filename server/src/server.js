@@ -26,6 +26,7 @@ const startServer = (req) => {
     db.on('error', console.error.bind(console, 'MongoDB connection error:'));
     db.once('open', () => { console.log( '+++Connected to mongoose')})
 
+
     
     app.listen({ port: process.env.PORT || 5000 }, () => {
         console.log(`Server is ready at http://localhost:5000${server.graphqlPath}`)

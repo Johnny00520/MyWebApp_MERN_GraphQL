@@ -19,20 +19,18 @@ const loginNavbarPaths = [
     { path: '/skills', name: "skills"},
     { path: '/experiences', name: "experiences"},
     { path: '/projects', name: "projects" },
-    { path: '/logout', name: "logout"},
     { path: '/contact', name: "contact"}
 ]
 
 const CustomNavbar = (props) => {
+
     const { user, logout } = useContext(AuthContext);
 
     const pathname = window.location.pathname;
     const path = pathname === "/" ? 'home' : pathname.substr('/');
+
     const [activeItem, setActiveItem] = useState(path);
-
     const handleItemClick = (e, { name }) => setActiveItem(name);
-
-    // console.log("user: ", user)
 
     const menuBar = user ? (
         <header className="navbar">
@@ -44,6 +42,7 @@ const CustomNavbar = (props) => {
             >
                 <Menu.Item
                     name={user.lastname}
+                    active={path === "home"}
                     as={Link}
                     to="/"
                 />
@@ -53,13 +52,17 @@ const CustomNavbar = (props) => {
                         <Menu.Item
                             key={loginNavbarPath.name}
                             name={loginNavbarPath.name}
+                            onClick={handleItemClick}
+                            
+                            as={Link}
+                            to={loginNavbarPath.path}
                             active={activeItem === loginNavbarPath.name}
-                            // onClick={handleItemClick}
-                            onClick={user ? logout : handleItemClick}
-                            as={user ? "" : Link}
-                            to={user ? "" : loginNavbarPath.path}
                         />
                     )}
+                    <Menu.Item
+                        name="logout"
+                        onClick={logout}
+                    />
                 </Menu.Menu>
             </Menu>
         </header>
@@ -74,6 +77,7 @@ const CustomNavbar = (props) => {
             <Menu.Item
                 name="JC"
                 active={activeItem === "home"}
+                
                 onClick={handleItemClick}
                 as={Link}
                 to="/"

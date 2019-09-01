@@ -40,29 +40,8 @@ const Adminlayout = (props) => {
                     <Segment placeholder>
                         <Grid columns={2} stackable>
                             <Grid.Column>
-
                                 <Login {...props}/>
-
-                                {/* <Form>
-                                    <Form.Input
-                                        icon='envelope'
-                                        iconPosition='left'
-                                        label='Email'
-                                        placeholder='UserEmailname'
-                                    />
-                                    
-                                    <Form.Input
-                                        icon='lock'
-                                        iconPosition='left'
-                                        label='Password'
-                                        type='password'
-                                    />
-
-                                    <Button content='Login' primary />
-                                </Form> */}
-
                             </Grid.Column>
-
 
                             <div className={width > 376 ? "divider_none" : "divider_responsible"}>
                                 <Divider horizontal>or</Divider>

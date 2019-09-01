@@ -1,4 +1,14 @@
 .login_section {
 
-    
+    .ui.form {
+
+        .login_options {
+            display: flex;
+
+            a {
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
 }

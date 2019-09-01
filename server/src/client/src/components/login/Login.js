@@ -1,14 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { Form, Button } from 'semantic-ui-react';
 import { useMutation } from "@apollo/react-hooks";
-import gql from 'graphql-tag';
 import { useForm } from '../../utils/hooks';
 import { AuthContext } from '../../context/auth';
+import { Link } from 'react-router-dom';
+import gql from 'graphql-tag';
 import './Login.scss';
 
 const Login = (props) => {
     const context = useContext(AuthContext);
-
     const [errors, setErrors] = useState({});
 
     const { onChange, onSubmit, values} = useForm(loginUserCallback, {
@@ -21,13 +21,13 @@ const Login = (props) => {
         // proxy is rarely used
         update(proxy, result) {
 
-            console.log("result.data: ", result.data)
+            // console.log("result.data: ", result.data)
             const userData = result.data.userLogin;
-
+            
+            props.history.push('/');
+            // console.log("props in login: ", props)
             context.login(userData);
 
-            console.log("props in login: ", props)
-            props.history.push('/');
         },
         // variables: values
         variables: {
@@ -89,14 +89,12 @@ const Login = (props) => {
                     iconPosition='left'
                 >
                 </Form.Input>
-                
-                <Button
-                    type="submit"
-                    primary
-                    // floated="right"
-                >
-                    Login
-                </Button>
+                <div className="login_options">
+                    <Button type="submit" primary style={{ margin: '0 20%'}}>Login</Button>
+
+                    <Link to="/forgot_password">Forgot password ?</Link>
+                </div>
+
             </Form>
 
         </div>

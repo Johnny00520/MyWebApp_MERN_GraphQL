@@ -58,3 +58,31 @@ export const validateLoginInput = (email, password) => {
         valid: Object.keys(errors).length < 1
     };
 }
+
+export const validateEmailInput = (email) => {
+    const errors = {};
+    if (email.trim() === '') {
+        errors.email = 'Email must not be empty';
+    }
+    return {
+        errors,
+        valid: Object.keys(errors).length < 1
+    };
+}
+
+export const validatePasswordResetInput = (password, confirmPassword) => {
+    const errors = {};
+    if(password.trim() === "") {
+        errors.password = "Password can not be empty";
+    }
+    if(confirmPassword.trim() === "") {
+        errors.password = "Password can not be empty";
+    }
+    if(password !== confirmPassword) {
+        errors.confirmPassword = "Password must match";
+    }
+    return {
+        errors,
+        valid: Object.keys(errors).length < 1
+    };
+}

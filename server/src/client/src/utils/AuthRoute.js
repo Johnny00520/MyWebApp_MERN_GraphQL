@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { AuthContext } from '../context/auth';
 
-// const AuthRoute = ({ component: Component, ...rest }) => {
-function AuthRoute({ component: Component, ...rest }) {
+const AuthRoute = ({ component: Component, ...rest }) => {
+// function AuthRoute({ component: Component, ...rest }) {
     const { user } = useContext(AuthContext);
 
     return (
@@ -11,8 +11,7 @@ function AuthRoute({ component: Component, ...rest }) {
             {...rest}
             render={props => 
                 // Can be redirect to /login in other projects
-                user ? <Redirect to="/" />
-                    : <Component {...props} />
+                user ? <Redirect to="/" /> : <Component {...props} {...rest} />
             }/>
     )
 }
