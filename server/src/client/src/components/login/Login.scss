@@ -5,10 +5,17 @@
         .login_options {
             display: flex;
 
-            a {
+            p {
+                text-align: center;
+                width: 50%;
                 display: flex;
                 align-items: center;
+
+                a {
+                    margin: auto;
+                }
             }
         }
+
     }
 }

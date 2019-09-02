@@ -32,6 +32,11 @@
                 }
 
             }
+
+            .ui.placeholder.segment .column .button, .ui.placeholder.segment .column .field, .ui.placeholder.segment .column textarea, .ui.placeholder.segment .column>.ui.input {
+                width: 80%;
+                max-width: unset;
+            }
         }
 
 

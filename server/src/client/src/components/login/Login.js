@@ -7,16 +7,13 @@ import { Link } from 'react-router-dom';
 import gql from 'graphql-tag';
 import './Login.scss';
 
+import { loginValidatorsInput } from '../../utils/validators';
+
 const Login = (props) => {
     const context = useContext(AuthContext);
-    const [errors, setErrors] = useState({});
+    const [berrors, setBErrors] = useState({});
 
-    // localStorage.removeItem('jwtToken')
-
-    const { onChange, onSubmit, values} = useForm(loginUserCallback, {
-        email: "",
-        password: ""
-    })
+    const { onChange, onSubmit, values, ferrors} = useForm(loginUserCallback, loginValidatorsInput);
 
     const [loginUser, { loading }] = useMutation(LOGIN_USER, {
         // update() is triggered after mutation succeeds.
@@ -33,15 +30,17 @@ const Login = (props) => {
         },
         // variables: values
         variables: {
-            firstname: values.firstname,
-            lastname: values.lastname,
+            // firstname: values.firstname,
+            // lastname: values.lastname,
             email: values.email,
             password: values.password,
-            confirmPassword: values.confirmPassword
+            // confirmPassword: values.confirmPassword
         },
         onError(err) {
-            console.log("err.graphQLErrors[0].exception: ", err.graphQLErrors[0].exception)
-            setErrors(err.graphQLErrors[0].extensions.exception.errors)
+            // debugger
+            console.log("err.graphQLErrors[0].exception: ", err.graphQLErrors[0].extensions.exception)
+            setBErrors(err.graphQLErrors[0].extensions.exception.errors)
+            // loginValidatorsInput(err)
         }
         
     })
@@ -52,12 +51,18 @@ const Login = (props) => {
 
     return (
         <div className="login_section">
-            {Object.keys(errors).length > 0 && (
+            {Object.keys(berrors).length > 0 && (
                 <div className="ui error message">
                     <ul className="list">
-                        {Object.values(errors).map((value) => (
+                        {/* {Object.values(errors).map((value) => (
                             <li key={value}>{value}</li>
-                        ))}
+                        ))} */}
+
+                        {Object.values(berrors).map((value) => {
+                            // debugger
+                            console.log("value: ", value)
+                            return <li key={value}>{value}</li>
+                        })}
                     </ul>
                 </div>
             )}
@@ -66,35 +71,36 @@ const Login = (props) => {
                 <h1>Login</h1>
                 
                 <Form.Input
-                    label="email"
-                    placeholder="email..."
+                    label="Email"
+                    placeholder={ferrors.email ? ferrors.email : "Email..."}
                     name="email"
                     type="text"
-                    value={values.email}
+                    value={values.email || ''}
                     onChange={onChange}
-                    error={errors.email ? true : false}
-
+                    error={berrors.email || ferrors.email ? true : false}
                     icon='envelope'
                     iconPosition='left'
                 >
                 </Form.Input>
                 <Form.Input
                     label="Password"
-                    placeholder="Password..."
+                    placeholder={ferrors.password ? ferrors.password : "Password..."}
                     name="password"
                     type="password"
-                    value={values.password}
+                    value={values.password || ''}
                     onChange={onChange}
-                    error={errors.password ? true : false}
+                    error={berrors.password || ferrors.password ? true : false}
 
                     icon='lock'
                     iconPosition='left'
                 >
                 </Form.Input>
                 <div className="login_options">
-                    <Button type="submit" primary style={{ margin: '0 20%'}}>Login</Button>
+                    <Button type="submit" primary style={{ width: "50%"}}>Login</Button>
 
-                    <Link to="/forgot_password">Forgot password ?</Link>
+                    <p>
+                        <Link to="/forgot_password">Forgot password ?</Link>
+                    </p>
                 </div>
 
             </Form>
@@ -116,4 +122,4 @@ const LOGIN_USER = gql`
     }
 `;
 
-export default Login
+export default Login;

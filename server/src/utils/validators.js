@@ -47,7 +47,7 @@ export const validateAdminCreateInput = (firstname, lastname, email, password) =
 export const validateLoginInput = (email, password) => {
     const errors = {};
     if (email.trim() === '') {
-        errors.username = 'Username must not be empty';
+        errors.email = 'Email must not be empty';
     }
     if (password.trim() === '') {
         errors.password = 'Password must not be empty';

@@ -111,15 +111,15 @@ export const userResolvers = {
         },
         userLogin: async(_, { email, password }) => {
             const { errors, valid } = validateLoginInput(email, password);
-
+            
             if(!valid) {
                 throw new UserInputError("Errors", { errors });
             }
 
             const user = await User.findOne({ email });
             if(!user) {
-                errors.general = "User not found";
-                throw new UserInputError("User is not found", { errors });
+                errors.general = "Email not found";
+                throw new UserInputError("Email is not found", { errors });
             }
 
             const match = await bcrypt.compare(password, user.password);
