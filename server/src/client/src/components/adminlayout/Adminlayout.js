@@ -59,7 +59,7 @@ const Adminlayout = (props) => {
                             <Divider vertical>or</Divider>
                         </div>
                     </Segment>
-
+                    
                 </div>
             </div>
         </div>

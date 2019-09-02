@@ -29,12 +29,7 @@ const ForgotPassword = (props) => {
             // debugger
             console.log("err.graphQLErrors[0].exception: ", err.graphQLErrors[0].extensions.exception.errors)
             setErrors(err.graphQLErrors[0].extensions.exception.errors)
-        },
-
-        // onCompleted(data) {
-        //     console.log("data: ", data)
-        //     if(data) {}
-        // }
+        }
     })
 
     function passwordForgotCallback() {
@@ -69,7 +64,7 @@ const ForgotPassword = (props) => {
                         placeholder="Email..."
                         name="email"
                         type="text"
-                        value={values.email}
+                        value={values.email || ""}
                         onChange={onChange}
                         error={errors.email ? true : false}
 

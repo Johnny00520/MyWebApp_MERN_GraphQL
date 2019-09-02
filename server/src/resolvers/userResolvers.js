@@ -1,22 +1,10 @@
 import { User } from '../models/user';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import keys from '../../config/keys';
 import { authCheck } from '../utils/check_auth';
-
 import nodeMailer from 'nodemailer';
-const transport = {
-    // host: 'smtp.gmail.com',
-    service: 'Gmail',
-    auth: {
-        user: keys.NODE_MAILER_USER,
-        pass: keys.NODE_MAILER_PW
-    }
-}
+import { transport, verify, sendEMAIL } from '../utils/emailTransport';
 
-
-
-const mongoose = require('mongoose');
 import { 
     UserInputError,
     AuthenticationError
@@ -28,8 +16,6 @@ import {
     validateEmailInput,
     validatePasswordResetInput
 } from '../utils/validators';
-
-
 
 const generateToken = (user) => {
     return jwt.sign({
@@ -227,13 +213,7 @@ export const userResolvers = {
                 const res = await user.save();
                 const smtpTransport = nodeMailer.createTransport(transport)
 
-                smtpTransport.verify((error, success) => {
-                    if (error) {
-                        console.log("server is not ready for smtpTransport in forgot password: ", error);
-                    } else {
-                        console.log('Server is ready to take messages and send email');
-                    }
-                });
+                await verify(smtpTransport);
 
                 const mailOptions = {
                     to: res.email,
@@ -242,17 +222,10 @@ export const userResolvers = {
                     text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
                     'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
                     context.req.headers.origin + '/recover/passwd_reset/' + token + '\n\n' +
-                    'If you did not request this, please ignore this email and your password will remain unchanged.\n',
-                                            
+                    'If you did not request this, please ignore this email and your password will remain unchanged.\n',                           
                 }
-                await smtpTransport.sendMail(mailOptions, (err, info) => {
-                    if(err) {
-                        return console.log('err in sending email in forgot password: ', err)
-                    } else {
-                        // console.log('Message sent: %s', JSON.stringify(info, null, 4));
-                        done()
-                    }
-                })
+
+                await sendEMAIL(smtpTransport, mailOptions);
 
                 // This should be the same in /graphql
                 return {
@@ -266,35 +239,19 @@ export const userResolvers = {
                 return 'Error in user forgot password:  ' + error
             }
         },
-        userResetPassword: async(_, { password, confirmPassword }, context) => {
-            console.log("context.req.params: ", context.req.params)
+        userResetPassword: async(_, { password, confirmPassword, token }, context) => {
 
             const authUser = authCheck(context);
-
             const { valid, errors } = validatePasswordResetInput(password, confirmPassword);
             if(!valid) {
                 throw new UserInputError("Error in validatePasswordInput", { errors })
             }
 
-
-            // await User.findOneAndUpdate(
-            //     { email: email},
-            //     { $set: {
-            //         resetPasswordToken: generateToken(user),
-            //         resetPasswordExpires: Date.now() + 360000
-            //         }
-            //     },
-            //     { returnOriginal: false },
-            //     (err, user) => {
-            //         console.log(user)
-            //     }
-            // )
-
             const user = await User.findOne({ 
-                resetPasswordToken: context.req.params,
+                resetPasswordToken: token,
                 resetPasswordExpires: { $gt: Date.now() }
             });
-            console.log("user in reset password: ", user)
+
             if(!user) {
                 throw new UserInputError("Your token may be expired", {
                     errors: {
@@ -303,7 +260,7 @@ export const userResolvers = {
                 }); 
             }
             
-            match = await bcrypt.compare(password, user.password);
+            const match = await bcrypt.compare(password, user.password);
             if(match) {
                 throw new UserInputError("Your password is too similar with previous one", {
                     errors: {
@@ -312,7 +269,7 @@ export const userResolvers = {
                 });
             }
 
-            newPassword = await bcrypt.hash(password, 12)
+            const newPassword = await bcrypt.hash(password, 12)
             user.password = newPassword;
             user.resetPasswordToken = undefined;
             user.resetPasswordExpires = undefined;
@@ -321,32 +278,20 @@ export const userResolvers = {
                 const res = await user.save();
                 const smtpTransport = nodeMailer.createTransport(transport)
 
-                smtpTransport.verify((error, success) => {
-                    if (error) {
-                        console.log("server is not ready for smtpTransport in forgot password: ", error);
-                    } else {
-                        console.log('Server is ready to take messages and send email');
-                    }
-                });
+                await verify(smtpTransport);
 
                 const mailOptions = {
                     to: res.email,
                     from: transport.auth.user,                                       
                     subject: 'Re: Successfully changed your password',
-                    text: 'Hello, ' + admin.firstname + ' ' + admin.lastname + '\n\n' +
-                        'This is a confirmation that the password for your account ' + admin.email + ' for the Clear has just been changed.\n' +
+                    text: 'Hello, ' + res.firstname + ' ' + res.lastname + '\n\n' +
+                        'This is a confirmation that the password for your account ' + res.email + ' for the johnny-cheng-dev webapp has just been changed.\n' +
                         'You can login with your new password by clicking the following link.\n\n' +
-                        keys.HTTP_NAME + context.req.headers.host + '/user/login' + '\n\n' +
+                        context.req.headers.origin + '/adminlayout' + '\n\n' +
                         'Please do not reply directly this email.\n'
                 }
-                await smtpTransport.sendMail(mailOptions, (err, info) => {
-                    if(err) {
-                        return console.log('err in sending email in forgot password: ', err)
-                    } else {
-                        console.log('Message sent: %s', JSON.stringify(info, null, 4));
-                        done()
-                    }
-                })
+
+                await sendEMAIL(smtpTransport, mailOptions);
 
                 // This should be the same in /graphql
                 return {

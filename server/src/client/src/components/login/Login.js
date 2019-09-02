@@ -11,6 +11,8 @@ const Login = (props) => {
     const context = useContext(AuthContext);
     const [errors, setErrors] = useState({});
 
+    // localStorage.removeItem('jwtToken')
+
     const { onChange, onSubmit, values} = useForm(loginUserCallback, {
         email: "",
         password: ""

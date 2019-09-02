@@ -1,9 +1,5 @@
-import { User } from '../models/user';
-import { Company } from '../models/company';
-
-// import { userResolver } from './userResolver';
-
 import { userResolvers } from './userResolvers';
+import { contactEmailResolvers } from './contactEmailResolvers';
 
 export const resolvers = {
     Query: {
@@ -11,6 +7,7 @@ export const resolvers = {
     },
     Mutation: {
         // createUser: userResolvers
-        ...userResolvers.Mutation
+        ...userResolvers.Mutation,
+        ...contactEmailResolvers.Mutation
     }
 }

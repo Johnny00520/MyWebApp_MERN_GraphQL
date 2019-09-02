@@ -27,16 +27,15 @@ const Routes = () => (
 
             <Switch>
                 <Route exact path="/" render={props => <Home {...props} />}/>
-
-                {/* <Route path="/register" render={props => <Register  {...props} />} /> */}
-                {/* <Route path="/login" render={props => <Login {...props} />} /> */}
-                <Route path="/adminlayout" render={props => <Adminlayout {...props} />} />
+                
+                
 
                 <Route  path='/forgot_password' component={ForgotPassword} />
                 {/* <Route  path='/recover/passwd_reset/:token' component={PasswordReset}  /> */}
                 <Route  path='/recover/passwd_reset/:token' render={props => <PasswordReset {...props} /> } />
 
-                <AuthRoute exact path="/adminlayout" render={props => <Adminlayout {...props} />} />
+                <Route path="/adminlayout" render={props => <Adminlayout {...props} />} />
+                {/* <AuthRoute exact path="/adminlayout" render={props => <Adminlayout {...props} />} /> */}
                 <AuthRoute exact path="/register" component={Register} />
                 <AuthRoute exact path="/login" render={props => <Login {...props} />} />
 

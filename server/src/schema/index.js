@@ -1,13 +1,14 @@
 import { gql } from 'apollo-server-express';
 import * as Company from './company';
 import * as User from './user';
+import * as Email from './contactEmail';;
 
 const types = [];
 const inputs = [];
 const queries = [];
 const mutations = [];
 
-const schemas = [Company, User];
+const schemas = [Company, User, Email];
 
 schemas.forEach((schema) => {
     types.push(schema.types);

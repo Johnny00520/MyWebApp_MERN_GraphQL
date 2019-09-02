@@ -42,5 +42,5 @@ export const mutations = `
     register(registerInput: RegisterInput): User!
     userLogin(email: String!, password: String!): User!
     userForgotPassword(email: String!): User!
-    userResetPassword(password: String!, confirmPassword: String!): User!
+    userResetPassword(password: String!, confirmPassword: String!, token: String!): User!
 `;

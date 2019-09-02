@@ -16,7 +16,8 @@ const startServer = (req) => {
     const server = new ApolloServer({
         typeDefs,
         resolvers,
-        context: ({ req, res }) =>  ({ req }), // Authentication
+        context: ({ req, res }) =>  ({ req, res }), // Authentication
+        // context: ({ req }) => req
     });
 
     server.applyMiddleware({ app })
